@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class NearestNeighbour {
 	
-	public static double routeTaken(ArrayList<Point2D> cities ){ //array of 2D points which will return a result of the route taken
+	public static ArrayList<Point2D> routeTaken(ArrayList<Point2D> cities){ //array of 2D points which will return a result of the route taken
 	
 	long startTime = System.currentTimeMillis(); //log the start time of the algorithm
 	
 	ArrayList<Point2D> listCities = cities; //data structure containing all cities
 	
 	ArrayList<Point2D> result = new ArrayList<Point2D>(); //list of all cities to be visited in order
+	
 	
 	
 	Point2D currentCity = cities.remove(0); //use the first city in cities as a starting point
@@ -22,9 +23,10 @@ public class NearestNeighbour {
 		
 		
 		for (Point2D cityPossible : listCities) {
-			if(getDistance(currentCity, cityPossible) < distance) {
-				closest = currentCity;
-				distance = getDistance(currentCity, cityPossible);
+			if(currentCity.distance(cityPossible) < distance){ //currentCity.distance returns the distance between 2 cities
+				//if it is closer than any examined so far
+				closest = cityPossible; //the closest city becomes the next possible city in the loop
+				distance = currentCity.distance(cityPossible);
 			} //end if
 			
 		} //end for loop
@@ -40,15 +42,24 @@ public class NearestNeighbour {
 	return result;
 	}
 
-	private static double getDistance(Point2D currentCity, Point2D cityPossible) {
-		ArrayList<Point2D> cities = cities;
-		double distance = 0;
-		return 0;
+	
+	public double getDistance(ArrayList<Point2D> cities) {
+		//calculate the length of a TSP route held in an array list as a set of points
+		
+		ArrayList<Point2D> listCities = cities; //creates an array list instance of cities object
+		
+		double result = 0; //holds the route length
+		Point2D prev = listCities.get(listCities.size()-1);
+		//set the previous city as the last city in the array list as we
+		//need to measure length of the entire loop
+		
+		for (Point2D city : listCities) {
+			//go through each city in turn
+			result+= city.distance(prev);
+			//get distance from the previous city
+			prev = city;
+			//current city will be the previous city next time
+		}
+		return result;
 	}
-
-//	public double getDistance(ArrayList<Point2D> cities) { //gets the distance of the route taken
-//		
-//		double distance = 0;
-//		return 0;
-//	}
 }
