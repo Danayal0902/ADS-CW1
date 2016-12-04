@@ -16,7 +16,7 @@ public class NNTest {
         
         double distanceAfter = 0;
         
-        citiesUnsorted = TSPLib.loadTSPLib("/Users/danayaliftikhar/Desktop/TSP/rl1304.tsp");
+        citiesUnsorted = TSPLib.loadTSPLib("/Users/danayaliftikhar/Desktop/TSP/rl1323.tsp");
         
         distanceBefore = nearest.getDistance(citiesUnsorted);
         
